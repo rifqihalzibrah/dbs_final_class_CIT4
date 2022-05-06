@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+{% if session.get('username') %}
+<div class="container d-grid gap-5">
+    {% for id, title, body in topics %}
+    <div class="card">
+        <div class="card-header">
+            {{ title }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ body }}</p>
+            {% if session.get('user_id') == 0 %}
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a href="{{ url_for('topic.view', id=id) }}" type="button" class="btn btn-outline-primary">View</a>
+                <a href="{{ url_for('topic.edit', id=id) }}" type="button" class="btn btn-outline-warning">Edit</a>
+                <a href="{{ url_for('topic.delete', id=id) }}" type="button" class="btn btn-outline-danger">Delete</a>
+            </div>
+            {% else %}
+            <a href="{{ url_for('topic.view', id=id) }}" type="button" class="btn btn-outline-primary">View</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    {% if session.get('user_id') == 0 %}
+    <div class="card text-center">
+        <div class="card-body">
+            <a href="{{ url_for('topic.create') }}" class="btn btn-success">Add</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<center>
+    <h3>Welcome to E-Class</h3>
+    <h3>Please Login</h3>
+</center>
+{% endif %}
+{% endblock %}
