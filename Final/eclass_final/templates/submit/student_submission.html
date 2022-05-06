@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if topic %}
+{{ topic[0] }}
+{% else %}
+E-Class
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% if topic %}
+    <h2>{{ topic[1] }}</h2>
+    <p>
+        {{ topic[2] }}
+    </p>
+    {% else %}
+    <h3>
+        Invalid Article
+    </h3>
+    {% endif %}
+</div>
+
+{% if topic %}
+<form action="/topic/submit/{{ topic[0] }}" method="POST">
+    <div class="row mb-3">
+        <div class="offset-2 col-6">
+            <textarea rows="8" cols="50" name="body" id="body"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-2 col-6">
+            <button class="btn btn-success" type="submit">Submit</button>
+        </div>
+    </div>
+</form>
+{% endif %}
+
+<div>
+    <a href="{{ url_for('home') }}">Back</a>
+</div>
+{% endblock %}

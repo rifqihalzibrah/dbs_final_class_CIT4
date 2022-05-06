@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+Classworks
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mt-3">
+        {% if works %}
+        <p>
+            Classworks
+        </p>
+        <table class="table table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Topic</th>
+                    <th>Work</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, name, topic_id, body in works %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ topic_id }}</td>
+                    <td>{{ body }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    {% if get_flashed_messages() %}
+    <div class="row mt-3">
+        {% for msg in get_flashed_messages() %}
+        <span>{{ msg }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="mt-5">
+    <a href="{{ url_for('home') }}">Home</a>
+</div>
+{% endblock %}
